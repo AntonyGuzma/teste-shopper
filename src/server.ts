@@ -1,17 +1,16 @@
 import fastify from "fastify";
-import { FastifyInstance, FastifyPluginOptions } from "../node_modules/fastify/fastify";
+import { routes } from "./routes/routes.js";
 
 
 const app = fastify({ logger: true })
 const PORT = 3333
-
-// Declare uma rota
-app.get('/', async (request , reply) => {
-    return { hello: 'Mundas' }
-  })
   
+
 // Iniciando o servidor
 const start = async () => {
+
+    // carregar as rotas
+    await app.register(routes)
 
     try {
       await app.listen({ port: PORT });
